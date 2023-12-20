@@ -5,7 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.*;
+import java.util.Properties;
+
+import static com.example.artel.App.createDataSource;
 
 public class HelloApplication extends Application {
     @Override

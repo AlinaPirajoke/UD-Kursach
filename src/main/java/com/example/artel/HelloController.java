@@ -1,10 +1,15 @@
 package com.example.artel;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class HelloController {
 
@@ -49,18 +54,27 @@ public class HelloController {
 
     @FXML
     void initialize() {
-        assert brand_btn != null : "fx:id=\"brand_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert catch_btn != null : "fx:id=\"catch_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert exit_btn != null : "fx:id=\"exit_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert fish_btn != null : "fx:id=\"fish_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert main_label != null : "fx:id=\"main_label\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert members_btn != null : "fx:id=\"members_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert payment_btn != null : "fx:id=\"payment_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert products_btn != null : "fx:id=\"products_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert shift_btn != null : "fx:id=\"shift_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert ship_btn != null : "fx:id=\"ship_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
-        assert storage_btn != null : "fx:id=\"storage_btn\" was not injected: check your FXML file 'hello-view.fxml'.";
+       fish_btn.setOnAction(event -> {
+          moveTo("fishTable.fxml");
+       });
+    }
 
+    private void moveTo(String path){
+        fish_btn.getScene().getWindow().hide();
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(path));
+
+        try {
+            loader.load();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
     }
 
 }
