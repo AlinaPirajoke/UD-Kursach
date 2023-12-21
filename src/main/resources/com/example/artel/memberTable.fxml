@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.artel.FishController">
+   <children>
+      <HBox prefHeight="495.0" prefWidth="767.0">
+         <children>
+            <VBox prefHeight="495.0" prefWidth="433.0" style="-fx-padding: 20;">
+               <children>
+                  <Label contentDisplay="CENTER" prefHeight="36.0" prefWidth="259.0" text="Данные о членах:" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane prefHeight="408.0" prefWidth="259.0">
+                     <content>
+                        <TableView id="table" fx:id="table" prefHeight="420.0" prefWidth="409.0">
+                           <columns>
+                              <TableColumn id="IdCol" fx:id="idCol" prefWidth="75.0" text="id" />
+                              <TableColumn id="NameCol" fx:id="nameCol" prefWidth="75.0" text="Имя" />
+                              <TableColumn id="Name2Col" fx:id="name2Col" prefWidth="75.0" text="Фамилия" />
+                              <TableColumn id="Name3Col" fx:id="name3Col" prefWidth="75.0" text="Отчество" />
+                              <TableColumn id="fishNameCol" fx:id="dolyaCol" prefWidth="75.0" text="Доля" />
+                              <TableColumn id="fishNameCol" fx:id="passportCol" prefWidth="75.0" text="Пасспорт" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+            <VBox prefHeight="495.0" prefWidth="334.0" style="-fx-padding: 20; -fx-alignment: center;">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="303.0" text="Внесите новую запись">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="32.0" prefWidth="259.0">
+                     <children>
+                        <VBox prefHeight="130.0" prefWidth="142.0" spacing="10.0">
+                           <children>
+                              <TextField id="fishNameInput" fx:id="nameInput" prefHeight="45.0" prefWidth="130.0" />
+                              <TextField id="fishNameInput" fx:id="name2Input" prefHeight="45.0" prefWidth="130.0" />
+                              <TextField id="fishNameInput" fx:id="name3Input" prefHeight="45.0" prefWidth="130.0" />
+                              <TextField id="fishNameInput" fx:id="dolyaInput" prefHeight="45.0" prefWidth="130.0" />
+                              <TextField id="fishNameInput" fx:id="passportInput" prefHeight="45.0" prefWidth="130.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets top="1.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <Pane prefHeight="166.0" prefWidth="20.0" />
+                        <VBox prefHeight="130.0" prefWidth="142.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="40.0" prefWidth="119.0" text="Имя" />
+                              <Label prefHeight="40.0" prefWidth="119.0" text="Фамилия" />
+                              <Label prefHeight="40.0" prefWidth="119.0" text="Отчество" />
+                              <Label prefHeight="40.0" prefWidth="119.0" text="Доля" />
+                              <Label prefHeight="40.0" prefWidth="119.0" text="Пасспорт" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button id="insert" fx:id="insert" mnemonicParsing="false" prefHeight="27.0" prefWidth="326.0" style="-fx-background-color: white; -fx-border-color: green;" styleClass="greenbutton" text="Внести значения">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button id="delete" fx:id="delete" mnemonicParsing="false" prefHeight="27.0" prefWidth="308.0" style="-fx-background-color: white; -fx-border-color: green;" styleClass="greenbutton" text="Удалить значение">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Separator prefHeight="29.0" prefWidth="259.0" />
+                  <Button id="fishUsingFinder" fx:id="memberTop5Finder" mnemonicParsing="false" prefHeight="27.0" prefWidth="303.0" style="-fx-background-color: white; -fx-border-color: green;" styleClass="greenbutton" text="Найти самых влиятельных членов">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Separator prefHeight="29.0" prefWidth="259.0" />
+                  <Button id="ExitButton" fx:id="exitButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="325.0" style="-fx-background-color: white; -fx-border-color: green;" styleClass="greenbutton" text="Выход">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>

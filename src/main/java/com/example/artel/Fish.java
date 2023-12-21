@@ -4,8 +4,8 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Fish {
-    public SimpleLongProperty id;
-    public SimpleStringProperty name;
+    SimpleLongProperty id;
+    SimpleStringProperty name;
 
     public Fish(Long i, String n) {
         id = new SimpleLongProperty(i);
