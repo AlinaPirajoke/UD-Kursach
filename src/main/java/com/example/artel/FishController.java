@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -13,11 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import javax.sql.DataSource;
@@ -46,6 +45,9 @@ public class FishController {
     private Button delete;
 
     @FXML
+    private Button fishUsingFinder;
+
+    @FXML
     private TableColumn<Fish, Long> fishIdCol;
 
     @FXML
@@ -54,9 +56,11 @@ public class FishController {
     @FXML
     private TableView<Fish> table;
 
-    @FXML
-    void initialize() {
+    public FishController() throws SQLException {
+    }
 
+    @FXML
+    void initialize() throws SQLException {
         fishIdCol.setCellValueFactory(new PropertyValueFactory<Fish, Long>("id"));
         fishNameCol.setCellValueFactory(new PropertyValueFactory<Fish, String>("name"));
         table.setItems(fishes);
@@ -68,17 +72,24 @@ public class FishController {
         insert.setOnAction(event -> {
             String value = fishNameInput.getText();
             fishNameInput.setText("");
-            fishes = insertFish(value);
+            try {
+                fishes = insertFish(value);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             table.setItems(fishes);
+        });
 
+        fishUsingFinder.setOnAction(event -> {
+            findUsingFish();
         });
     }
 
-    ObservableList<Fish> getFishes() {
+    ObservableList<Fish> getFishes() throws SQLException {
+        DataSource dataSource = createDataSource();
+        Connection conn = dataSource.getConnection();
         ObservableList<Fish> fishes = FXCollections.observableArrayList();
         try {
-            DataSource dataSource = createDataSource();
-            Connection conn = dataSource.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM artel.fish");
             ResultSet rs = stmt.executeQuery();
 
@@ -95,11 +106,11 @@ public class FishController {
         return fishes;
     }
 
-    ObservableList<Fish> insertFish(String value) {
+    ObservableList<Fish> insertFish(String value) throws SQLException {
+        DataSource dataSource = createDataSource();
+        Connection conn = dataSource.getConnection();
         ObservableList<Fish> fishes = FXCollections.observableArrayList();
         try {
-            DataSource dataSource = createDataSource();
-            Connection conn = dataSource.getConnection();
             PreparedStatement stmt0 = conn.prepareStatement("INSERT INTO artel.fish (name) VALUES (?)");
             stmt0.setString(1, value);
             stmt0.execute();
@@ -119,7 +130,24 @@ public class FishController {
         return fishes;
     }
 
-
+    private void findUsingFish(){
+        try {
+            DataSource dataSource = createDataSource();
+            Connection conn = dataSource.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("select fi.name as fname, pr.name as pname from artel.fish as fi join artel.product as pr on pr.fish_id = fi.id;");
+            ResultSet rs = stmt.executeQuery();
+            String text = "РЫБА-ПРОДУКТ С ЕЁ СОДЕРЖАНИЕМ\n\n";
+            while (rs.next()) {
+                System.out.printf("name:%s mane:%s\n", rs.getString("fname"),
+                        rs.getString("pname"));
+                text += rs.getString("fname") + " - " + rs.getString("pname") + "\n";
+            }
+            Universal.TextWindow(text);
+        } catch (Exception e) {
+            System.err.println("Error accessing database!");
+            e.printStackTrace();
+        }
+    }
 
     private void moveToExit(){
         exitButton.getScene().getWindow().hide();
