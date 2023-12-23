@@ -5,17 +5,17 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Member {
-    SimpleLongProperty id;
-    SimpleIntegerProperty dolya, passport;
+    SimpleLongProperty id, passport;
+    SimpleIntegerProperty dolya;
     SimpleStringProperty name1, name2, name3;
 
-    public Member(Long i, String n1, String n2, String n3,  int d, int p) {
+    public Member(Long i, String n1, String n2, String n3,  int d, long p) {
         id = new SimpleLongProperty(i);
         name1 = new SimpleStringProperty(n1);
         name2 = new SimpleStringProperty(n2);
         name3 = new SimpleStringProperty(n3);
         dolya = new SimpleIntegerProperty(d);
-        passport = new SimpleIntegerProperty(p);
+        passport = new SimpleLongProperty(p);
     }
 
     public long getId() {
@@ -24,10 +24,6 @@ public class Member {
 
     public SimpleLongProperty idProperty() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id.set(id);
     }
 
     public int getDolya() {
@@ -42,15 +38,15 @@ public class Member {
         this.dolya.set(dolya);
     }
 
-    public int getPassport() {
+    public long getPassport() {
         return passport.get();
     }
 
-    public SimpleIntegerProperty passportProperty() {
+    public SimpleLongProperty passportProperty() {
         return passport;
     }
 
-    public void setPassport(int passport) {
+    public void setPassport(long passport) {
         this.passport.set(passport);
     }
 

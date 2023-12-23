@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -63,7 +66,29 @@ public class FishController {
     void initialize() throws SQLException {
         fishIdCol.setCellValueFactory(new PropertyValueFactory<Fish, Long>("id"));
         fishNameCol.setCellValueFactory(new PropertyValueFactory<Fish, String>("name"));
+        fishNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
         table.setItems(fishes);
+        fishNameCol.setEditable(true);
+        table.setEditable(true);
+
+        fishNameCol.setOnEditCommit(event -> {
+            if (event.getNewValue() != null){
+                Fish fish = ((Fish) event.getTableView().getItems()
+                        .get(event.getTablePosition().getRow()));
+                fish.setName(event.getNewValue());
+                updateFish(fish);
+                table.setItems(getFishes());
+            }
+//            ((Fish) event.getTableView().getItems()
+//                    .get(event.getTablePosition().getRow())).setName(value);
+//            table.refresh();
+        });
+
+        delete.setOnAction(event -> {
+            long id = table.getItems().get(table.getSelectionModel().getSelectedIndex()).getId();
+            delete(id);
+            table.setItems(getFishes());
+        });
 
         exitButton.setOnAction(event -> {
             moveToExit();
@@ -85,12 +110,12 @@ public class FishController {
         });
     }
 
-    ObservableList<Fish> getFishes() throws SQLException {
-        DataSource dataSource = createDataSource();
-        Connection conn = dataSource.getConnection();
+    ObservableList<Fish> getFishes() {
         ObservableList<Fish> fishes = FXCollections.observableArrayList();
         try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM artel.fish");
+            DataSource dataSource = createDataSource();
+            Connection conn = dataSource.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM artel.fish ORDER BY id ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -104,6 +129,20 @@ public class FishController {
         }
 
         return fishes;
+    }
+
+    public void updateFish(Fish fish){
+        try {
+            DataSource dataSource = createDataSource();
+            Connection conn = dataSource.getConnection();
+            PreparedStatement stmt0 = conn.prepareStatement("UPDATE artel.fish SET name = ? WHERE id = ?");
+            stmt0.setString(1, fish.getName());
+            stmt0.setLong(2, fish.getId());
+            stmt0.execute();
+        } catch (Exception e) {
+            System.err.println("Error accessing database!");
+            e.printStackTrace();
+        }
     }
 
     ObservableList<Fish> insertFish(String value) throws SQLException {
@@ -143,6 +182,19 @@ public class FishController {
                 text += rs.getString("fname") + " - " + rs.getString("pname") + "\n";
             }
             Universal.TextWindow(text);
+        } catch (Exception e) {
+            System.err.println("Error accessing database!");
+            e.printStackTrace();
+        }
+    }
+
+    private void delete(long id){
+        try {
+            DataSource dataSource = createDataSource();
+            Connection conn = dataSource.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM artel.fish WHERE id = ?");
+            stmt.setLong(1, id);
+            stmt.execute();
         } catch (Exception e) {
             System.err.println("Error accessing database!");
             e.printStackTrace();

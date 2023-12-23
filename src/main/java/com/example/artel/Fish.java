@@ -23,8 +23,4 @@ public class Fish {
     public void setName(String name) {
         this.name.set(name);
     }
-
-    public void setId(Long id) {
-        this.id.set(id);
-    }
 }

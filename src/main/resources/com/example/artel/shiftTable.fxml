@@ -13,21 +13,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.artel.FishController">
+<AnchorPane id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.artel.ShiftController">
    <children>
       <HBox prefHeight="495.0" prefWidth="767.0">
          <children>
             <VBox prefHeight="495.0" prefWidth="433.0" style="-fx-padding: 20;">
                <children>
-                  <Label contentDisplay="CENTER" prefHeight="36.0" prefWidth="259.0" text="Данные о :" textAlignment="CENTER">
+                  <Label contentDisplay="CENTER" prefHeight="36.0" prefWidth="259.0" text="Данные о сменах:" textAlignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
                   <TableView id="table" fx:id="table" prefHeight="420.0" prefWidth="409.0">
                      <columns>
-                        <TableColumn id="IdCol" fx:id="idCol" prefWidth="75.0" text="id" />
-                        <TableColumn id="NameCol" fx:id="nameCol" prefWidth="75.0" text="Имя" />
+                        <TableColumn id="IdCol" fx:id="idCol" prefWidth="40.0" text="id" />
+                        <TableColumn id="NameCol" fx:id="memberCol" prefWidth="57.60000991821289" text="id члена" />
+                        <TableColumn id="NameCol" fx:id="shipCol" prefWidth="75.99996948242188" text="id корабля" />
+                        <TableColumn id="NameCol" fx:id="hourCol" prefWidth="122.40000915527344" text="Количество часов" />
+                        <TableColumn id="NameCol" fx:id="dateCol" prefWidth="102.39996337890625" text="Дата" />
                      </columns>
                   </TableView>
                </children>
@@ -43,7 +46,10 @@
                      <children>
                         <VBox prefHeight="130.0" prefWidth="142.0" spacing="10.0">
                            <children>
-                              <TextField id="fishNameInput" fx:id="nameInput" prefHeight="30.0" prefWidth="138.0" />
+                              <TextField id="fishNameInput" fx:id="memberInput" prefHeight="30.0" prefWidth="138.0" />
+                              <TextField id="fishNameInput" fx:id="shipInput" prefHeight="30.0" prefWidth="138.0" />
+                              <TextField id="fishNameInput" fx:id="hourInput" prefHeight="30.0" prefWidth="138.0" />
+                              <TextField id="fishNameInput" fx:id="dateInput" prefHeight="30.0" prefWidth="138.0" />
                            </children>
                            <HBox.margin>
                               <Insets top="1.0" />
@@ -52,7 +58,10 @@
                         <Pane prefHeight="166.0" prefWidth="20.0" />
                         <VBox prefHeight="130.0" prefWidth="142.0" spacing="10.0">
                            <children>
-                              <Label prefHeight="30.0" prefWidth="119.0" text="Имя" />
+                              <Label prefHeight="30.0" prefWidth="119.0" text="id члена" />
+                              <Label prefHeight="30.0" prefWidth="119.0" text="id корабля" />
+                              <Label prefHeight="30.0" prefWidth="119.0" text="Количество часов" />
+                              <Label prefHeight="30.0" prefWidth="119.0" text="Дата" />
                            </children>
                         </VBox>
                      </children>

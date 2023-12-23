@@ -3,6 +3,7 @@ package com.example.artel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -54,12 +55,27 @@ public class HelloController {
 
     @FXML
     void initialize() {
-       fish_btn.setOnAction(event -> {
-          moveTo("fishTable.fxml");
-       });
+        fish_btn.setOnAction(event -> {
+            moveTo("fishTable.fxml");
+        });
+        members_btn.setOnAction(event -> {
+            moveTo("memberTable.fxml");
+        });
+        ship_btn.setOnAction(event -> {
+            moveTo("shipTable.fxml");
+        });
+        shift_btn.setOnAction(event -> {
+            moveTo("shiftTable.fxml");
+        });
+        payment_btn.setOnAction(event -> {
+            moveTo("paymentTable.fxml");
+        });
+        catch_btn.setOnAction(event -> {
+            moveTo("catchTable.fxml");
+        });
     }
 
-    private void moveTo(String path){
+    private void moveTo(String path) {
         fish_btn.getScene().getWindow().hide();
 
         FXMLLoader loader = new FXMLLoader();
@@ -67,7 +83,7 @@ public class HelloController {
 
         try {
             loader.load();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -76,5 +92,4 @@ public class HelloController {
         stage.setScene(new Scene(root));
         stage.showAndWait();
     }
-
 }
