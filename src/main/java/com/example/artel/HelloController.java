@@ -73,6 +73,15 @@ public class HelloController {
         catch_btn.setOnAction(event -> {
             moveTo("catchTable.fxml");
         });
+        brand_btn.setOnAction(event -> {
+            moveTo("brandTable.fxml");
+        });
+        products_btn.setOnAction(event -> {
+            moveTo("productTable.fxml");
+        });
+        storage_btn.setOnAction(event -> {
+            moveTo("storageTable.fxml");
+        });
     }
 
     private void moveTo(String path) {
